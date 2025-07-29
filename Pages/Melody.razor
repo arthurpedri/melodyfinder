@@ -6,14 +6,16 @@
 <!-- <button @onclick="GenerateMelody">Generate</button> -->
 <button @onclick="PlayMelody" >Play</button>
 
-<h3 id="score-info" >Score Information: @(abc.Split('\n')[0]) @(abc.Split('\n')[2]) @(abc.Split('\n')[3])</h3>
+<h3 id="score-info" >Score Information: @(abc.Split('\n')[4])</h3>
 
 <div id="notation"></div>
 <div id="audio-controls"></div>
 
 @code {
-    string abc = "X:1\nT:Simple Scale\nM:4/4\nK:C\nc' D,, E F | G A B c |";
+    // As stated, immediately following the K: field on the next line is the body of the tune, eg the representation of the notes of the melody.
+    string abc = "X:1\nQ:80\nT:Simple Scale\nM:4/4\nK:G\n[C2E2G2][D2F2A2][GBd][FAd][E2G2B2]||";
 
+// TODO: Create method to generate chord progressions based on common progressions and randomize the key
 
 
     bool generated = false;
