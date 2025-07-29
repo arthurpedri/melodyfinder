@@ -1,0 +1,31 @@
+@page "/melody"
+@inject IJSRuntime JS
+
+<h3>Melody Generator</h3>
+
+<!-- <button @onclick="GenerateMelody">Generate</button> -->
+<button @onclick="PlayMelody" >Play</button>
+
+<h3 id="score-info" >Score Information: @(abc.Split('\n')[0]) @(abc.Split('\n')[2]) @(abc.Split('\n')[3])</h3>
+
+<div id="notation"></div>
+<div id="audio-controls"></div>
+
+@code {
+    string abc = "X:1\nT:Simple Scale\nM:4/4\nK:C\nc' D,, E F | G A B c |";
+
+
+
+    bool generated = false;
+
+    async Task GenerateMelody()
+    {
+        await JS.InvokeVoidAsync("musicInterop.renderABC", "notation", abc);
+        generated = true;
+    }
+
+    async Task PlayMelody()
+    {
+        await JS.InvokeVoidAsync("musicInterop.playABC", abc);
+    }
+}
