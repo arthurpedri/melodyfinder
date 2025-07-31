@@ -1,34 +1,33 @@
-name: Deploy Blazor WASM to GitHub Pages
+name: Deploy Blazor WebAssembly to GitHub Pages
 
 on:
   push:
-    branches: [main] # or 'master' if that's your main branch
-
-permissions:
-  contents: write
+    branches: [main]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "9.0.x" # or 7.0.x / 6.0.x depending on your app
+          dotnet-version: 9.0.x
 
-      - name: Publish Blazor WebAssembly
+      - name: Publish Blazor WebAssembly App
         run: dotnet publish -c Release -o build
 
-      - name: Add .nojekyll
-        run: touch build/.nojekyll
+      - name: Create .nojekyll and CNAME
+        run: |
+          echo "arthurpedri.com.br" > build/wwwroot/CNAME
+          touch build/wwwroot/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: build/wwwroot
           cname: arthurpedri.com.br
