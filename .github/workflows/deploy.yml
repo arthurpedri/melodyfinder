@@ -30,4 +30,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build/wwwroot
+          publish_branch: gh-pages
           cname: arthurpedri.com.br
