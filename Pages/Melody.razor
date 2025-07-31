@@ -1,3 +1,4 @@
+@page "/"
 @page "/melody"
 @inject IJSRuntime JS
 @inject MelodyFinder.Services.MusicService MusicService
@@ -6,7 +7,16 @@
 
 <button @onclick="GenerateMelody">Generate</button>
 
+<button @onclick="() => showKey = !showKey">@((showKey ? "Hide" : "Show") + " Key")</button>
+
+@if (showKey)
+{
+    <h3 id="score-info" >@(abc.Split("\n")[4])</h3>
+}
+
 <button @onclick="() => showScoreInfo = !showScoreInfo">@((showScoreInfo ? "Hide" : "Show") + " Score Info")</button>
+
+
 
 @if (showScoreInfo)
 {
@@ -25,6 +35,7 @@
 @code {
     bool showScoreInfo = false;
     bool showNotation = false;
+    bool showKey = false;
     // As stated, immediately following the K: field on the next line is the body of the tune, eg the representation of the notes of the melody.
     private string abc = "X:1\nQ:80\nT:Simple Scale\nM:4/4\nK:G\n[C2E2G2][D2F2A2][GBd][FAd][E2G2B2]||";
 

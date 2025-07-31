@@ -38,7 +38,7 @@ public class MusicService
         var scale = GetScale(key);
         if (scale.Length == 0) return "";
 
-        var abc = $"X:1\nT:Random Melody\nM:4/4\nK:{key}\n";
+        var abc = $"X:1\nQ:100\nT:Random Melody\nM:4/4\nK:{key}\n";
         int bars = 2;
         int notesPerBar = 4;
         string[] durations = { "2", "" }; 
