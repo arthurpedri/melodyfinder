@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "melodyfinder",
   "resources": {
-    "hash": "sha256-h5s4lWPqqHsPTmB9xb7y6KKzA9vG1OoYAXqZD/FlIac=",
+    "hash": "sha256-he7pi1Es5EN7A43WimcZ+Vg9nNzv0KkMzk8T25Tr2Mc=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.glpai5h65b.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.akqz85au1m.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -36,7 +36,7 @@
       "System.Text.Json.dek5fmtx16.wasm": "System.Text.Json.wasm",
       "System.Text.RegularExpressions.uppli1il33.wasm": "System.Text.RegularExpressions.wasm",
       "System.Private.CoreLib.0hl6aqka2d.wasm": "System.Private.CoreLib.wasm",
-      "melodyfinder.qas7yunocm.wasm": "melodyfinder.wasm",
+      "melodyfinder.x73zjb50hg.wasm": "melodyfinder.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.st0ovrfdhi.js": "dotnet.native.js",
       "dotnet.native.67rumul467.wasm": "dotnet.native.wasm",
@@ -95,7 +95,7 @@
       "System.Text.Encodings.Web.17hm3y46w3.wasm": "sha256-c5RLUrDt4sG/1BUZLDKBL/8r3macGjhggRplXaBWcBQ=",
       "System.Text.Json.dek5fmtx16.wasm": "sha256-hY1yctGtllw8dkFHUqvBIfat9dvziGRQy/JmPYtTpf0=",
       "System.Text.RegularExpressions.uppli1il33.wasm": "sha256-cssgrj2fLKJui+a09EbhoMvUEqUJHPWKR47Ri3l887A=",
-      "melodyfinder.qas7yunocm.wasm": "sha256-ApWAn/wNM00aDPf0kUG9NsdzvMI7z6rKlyqSjBPg3NI="
+      "melodyfinder.x73zjb50hg.wasm": "sha256-87X+NI1C0HaCEUGbU3R+OXUsWs5Vxs1OJt8q8kdO+Bc="
     }
   },
   "cacheBootResources": true,
