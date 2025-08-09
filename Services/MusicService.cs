@@ -27,9 +27,9 @@ public class MusicService
         if (startIndex == -1) return Array.Empty<string>();
 
         var steps = isMinor ? minorSteps : majorSteps;
-        
+
         int idx = startIndex;
-        
+
         var scale = new List<string> { root.StartsWith('_') || root.StartsWith('^') ? root[1..] : root };
 
         foreach (var step in steps)
@@ -53,7 +53,7 @@ public class MusicService
         if (scale.Length == 0) return "";
         bool isMinor = key.EndsWith('m');
         key = isMinor ? key[..^1] : key; // Remove the 'm' for minor keys
-        
+
         if (key.StartsWith('_'))
         {
             key = key[1..] + "b"; // Convert to flat notation
@@ -67,7 +67,7 @@ public class MusicService
         var abc = $"X:1\nQ:100\nT:Random Melody\nM:4/4\nK:{key}\n";
         int bars = 2;
         int notesPerBar = 4;
-        string[] durations = { "2", "" }; 
+        string[] durations = { "2", "" };
         // string[] durations = { "", "/", "2" }; // quarter, eighth, half
         int currentNote = 0;
 
@@ -87,4 +87,17 @@ public class MusicService
 
         return abc.Trim();
     }
+
+    public string GenerateRandomNote()
+    {
+        var notes = new[] {
+            "C,", "^C,", "D,", "^D,", "E,", "F,", "^F,", "G,", "^G,", "A,", "^A,", "B,",
+            "C", "^C", "D", "^D", "E", "F", "^F", "G", "^G", "A", "^A", "B",
+            "c", "^c", "d", "^d", "e", "f", "^f", "g", "^g", "a", "^a", "b"
+        };
+        var note = notes[_random.Next(notes.Length)];
+        return note;
+    }
+    
+
 }

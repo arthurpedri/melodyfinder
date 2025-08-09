@@ -3,7 +3,9 @@
 @inject IJSRuntime JS
 @inject MelodyFinder.Services.MusicService MusicService
 
-<h3>Melody Generator</h3>
+<PageTitle>Melody</PageTitle>
+
+<h1>Melody Generator</h1>
 
 <button @onclick="GenerateMelody">Generate</button>
 
@@ -11,7 +13,7 @@
 
 @if (showKey)
 {
-    <h3 id="score-info" >@(abc.Split("\n")[4])</h3>
+    <h3 id="key-info" >@(abc.Split("\n")[4])</h3>
 }
 
 <button @onclick="() => showScoreInfo = !showScoreInfo">@((showScoreInfo ? "Hide" : "Show") + " Score Info")</button>
@@ -30,7 +32,7 @@
 
 <div id="audio-controls"></div>
 
-<button @onclick="PlayMelody">Play</button>
+<button class="play-button" @onclick="PlayMelody">Play</button>
 
 @code {
     bool showScoreInfo = false;

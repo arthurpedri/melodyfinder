@@ -1,0 +1,47 @@
+﻿@page "/note"
+@inject IJSRuntime JS
+@inject MelodyFinder.Services.MusicService MusicService
+
+<PageTitle>Note</PageTitle>
+
+<h1>Note Identification</h1>
+
+<button @onclick="GenerateNote">Generate</button>
+
+<button @onclick="() => showNote = !showNote">@((showNote ? "Hide" : "Show") + " Note")</button>
+@if (showNote)
+{
+    <h3 id="note-info" >@readableNote</h3>
+}
+
+<div id="notation" style="display: none"></div>
+<div id="audio-controls"></div>
+
+<button class="play-button" @onclick="PlayNote">Play</button>
+
+@code {
+    bool showNote = false;
+    private string note = "C";
+    private string readableNote = "C";
+
+    private string abc = "X:1\nQ:80\nT:Single Note\nM:4/4\nK:C\nC4||";
+
+
+    private void GenerateNote()
+    {
+        note = MusicService.GenerateRandomNote();
+        readableNote = note.Replace(",", "");
+        if (note.StartsWith('^'))
+        {
+            readableNote = readableNote[1..] + "#"; // Convert to sharp notation
+        }
+        readableNote = readableNote.ToUpper();
+        abc = "X:1\nQ:80\nT:Single Note\nM:4/4\nK:C\n" + note + "4||";
+    }
+
+    async Task PlayNote()
+    {
+        await JS.InvokeVoidAsync("musicInterop.playABC", abc);
+    }
+
+}
