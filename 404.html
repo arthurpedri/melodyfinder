@@ -10,7 +10,9 @@
 
         // Save the requested path
         sessionStorage.redirectPath =
-          location.pathname.replace(base, "") + location.search + location.hash;
+          location.pathname.substring(base.length) +
+          location.search +
+          location.hash;
 
         // Redirect to index.html in your base path
         location.replace(base + "/index.html");
