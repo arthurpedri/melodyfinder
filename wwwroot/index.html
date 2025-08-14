@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>melodyfinder</title>
+    <title>Melody Finder</title>
     <base href="/melodyfinder/" />
     <!-- for correct base url locally use the argument --pathbase=/melodyfinder -->
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -30,5 +30,15 @@
     <script src="js/abcjs-basic-min.js"></script>
     <script src="js/musicInterop.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script type="text/javascript">
+      (function () {
+        var redirectPath = sessionStorage.redirectPath;
+        if (redirectPath) {
+          sessionStorage.removeItem("redirectPath");
+          // Put the path back in the address bar without reloading
+          history.replaceState(null, "", redirectPath);
+        }
+      })();
+    </script>
   </body>
 </html>

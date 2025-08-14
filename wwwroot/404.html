@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      (function () {
+        // Your GitHub Pages repo name
+        var base = "/melodyfinder";
+
+        // Save the requested path
+        sessionStorage.redirectPath =
+          location.pathname.replace(base, "") + location.search + location.hash;
+
+        // Redirect to index.html in your base path
+        location.replace(base + "/index.html");
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
