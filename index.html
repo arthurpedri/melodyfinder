@@ -32,11 +32,12 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script type="text/javascript">
       (function () {
-        var redirectPath = sessionStorage.redirectPath;
+        const base = "/melodyfinder";
+        const redirectPath = sessionStorage.getItem("redirectPath");
+
         if (redirectPath) {
           sessionStorage.removeItem("redirectPath");
-          // Put the path back in the address bar without reloading
-          history.replaceState(null, "", redirectPath);
+          history.replaceState(null, "", base + redirectPath);
         }
       })();
     </script>
