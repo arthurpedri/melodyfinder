@@ -6,9 +6,9 @@
 
 <h1>Note Identification</h1>
 
-<button @onclick="GenerateNote">Generate</button>
+<button @onclick="GenerateNote" class="generate-button">Generate</button>
 
-<button @onclick="() => showNote = !showNote">@((showNote ? "Hide" : "Show") + " Note")</button>
+<button @onclick="() => showNote = !showNote" class="show-button">@((showNote ? "Hide" : "Show") + " Note")</button>
 @if (showNote)
 {
     <h3 id="note-info" >@readableNote</h3>

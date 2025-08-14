@@ -7,16 +7,19 @@
 
 <h1>Melody Generator</h1>
 
-<button @onclick="GenerateMelody">Generate</button>
+<button @onclick="GenerateMelody" class="generate-button">Generate</button>
 
-<button @onclick="() => showKey = !showKey">@((showKey ? "Hide" : "Show") + " Key")</button>
+<button @onclick="() => showKey = !showKey" class="show-button">@((showKey ? "Hide" : "Show") + " Key")</button>
+
+<button @onclick="() => showScoreInfo = !showScoreInfo" class="show-button">@((showScoreInfo ? "Hide" : "Show") + " Score Info")</button>
+
+<button @onclick="() => showNotation = !showNotation" class="show-button">@((showNotation ? "Hide" : "Show") + " Notation")</button>
 
 @if (showKey)
 {
     <h3 id="key-info" >@(abc.Split("\n")[4])</h3>
 }
 
-<button @onclick="() => showScoreInfo = !showScoreInfo">@((showScoreInfo ? "Hide" : "Show") + " Score Info")</button>
 
 
 
@@ -25,7 +28,6 @@
     <h3 id="score-info" >Score Information: @abc</h3>
 }
 
-<button @onclick="() => showNotation = !showNotation">@((showNotation ? "Hide" : "Show") + " Notation")</button>
 
 <div id="notation" style="display:@(showNotation ? "block" : "none")"></div>
 
