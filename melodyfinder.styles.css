@@ -165,29 +165,3 @@ main[b-q2nuvhvku9] {
         overflow-y: auto;
     }
 }
-/* /Pages/Melody.razor.rz.scp.css */
-.play-button[b-ahj60k8a8p] {
-  background-color: #000000; /* Green */
-  border: none;
-  color: white;
-  padding: 20px 40px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  margin: 8px 4px;
-  cursor: pointer;
-}
-/* /Pages/Note.razor.rz.scp.css */
-.play-button[b-izdt7bu104] {
-  background-color: #000000; /* Green */
-  border: none;
-  color: white;
-  padding: 20px 40px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  margin: 8px 4px;
-  cursor: pointer;
-}
