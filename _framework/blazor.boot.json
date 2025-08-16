@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "melodyfinder",
   "resources": {
-    "hash": "sha256-Ot+DGhQbcTj1o0TBFfb5bBwp+rZH6LyP1XmuLL3gxUA=",
+    "hash": "sha256-kLSr3oZKIk1KmKPQM7JmnX/tWv79AxhP+KzzvcFF4l8=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.mw2oxuwv2e.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.akqz85au1m.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -29,12 +29,12 @@
       "System.Net.Primitives.xpspmtm8v8.wasm": "System.Net.Primitives.wasm",
       "System.Private.Uri.kjyi95avv6.wasm": "System.Private.Uri.wasm",
       "System.Runtime.InteropServices.JavaScript.q2qvulo9k9.wasm": "System.Runtime.InteropServices.JavaScript.wasm",
-      "System.Runtime.0r9r02wptr.wasm": "System.Runtime.wasm",
+      "System.Runtime.565ue6e43y.wasm": "System.Runtime.wasm",
       "System.Text.Encodings.Web.yosxql6jn5.wasm": "System.Text.Encodings.Web.wasm",
       "System.Text.Json.h6jruwiato.wasm": "System.Text.Json.wasm",
       "System.Text.RegularExpressions.qhcsf9u1lx.wasm": "System.Text.RegularExpressions.wasm",
       "System.Private.CoreLib.2lwj1kznj0.wasm": "System.Private.CoreLib.wasm",
-      "melodyfinder.wkvh6n4jca.wasm": "melodyfinder.wasm",
+      "melodyfinder.b7l3udiwac.wasm": "melodyfinder.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.50iqa8w3ys.js": "dotnet.native.js",
       "dotnet.native.pk43x8e436.wasm": "dotnet.native.wasm",
@@ -87,11 +87,11 @@
       "System.Net.Http.qdes2txg95.wasm": "sha256-MuIBShdkd3uBiCmENmDEXcV3gM9ETKBrgfOBbG7pucw=",
       "System.Net.Primitives.xpspmtm8v8.wasm": "sha256-pSdnjYgJc+hNq1q/ZNeofRaYvOCBNL1mHFHoF/j+a8Y=",
       "System.Private.Uri.kjyi95avv6.wasm": "sha256-YLwA1i2e8qU6Ngq4nnMHLyoNS9UGNo4aVScf1bKXVGY=",
-      "System.Runtime.0r9r02wptr.wasm": "sha256-5A14oPthxfWv0/LGLGAPeUhq+Qs94CUbB3bEVotkhIc=",
+      "System.Runtime.565ue6e43y.wasm": "sha256-UwR9s+NQ6yrITjenm9ZCXIMG7P0AoVAAzw6BxTnK4pk=",
       "System.Text.Encodings.Web.yosxql6jn5.wasm": "sha256-fgKqJw0Vkd2XqqB/Aj8WLXZK9/DPfEX9FcsrTzQTRFU=",
       "System.Text.Json.h6jruwiato.wasm": "sha256-J2h8It3KEE7eVU+nR3IyBWHVxVMv0KvA7MTuDKKmYtc=",
       "System.Text.RegularExpressions.qhcsf9u1lx.wasm": "sha256-wn7A6lyHyUX6ncCXE68PB0fgNpaI8xcNLGHt7qHCuQo=",
-      "melodyfinder.wkvh6n4jca.wasm": "sha256-4MO1wSnaHx/QztCngU0MYHEDQjD6TB1hIGbkLj18BFY="
+      "melodyfinder.b7l3udiwac.wasm": "sha256-F+Cu8EwosVI6dc8HEEm6ZiPAXCBW23xm6vUjBymaVTc="
     }
   },
   "cacheBootResources": true,
