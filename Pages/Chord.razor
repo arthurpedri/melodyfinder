@@ -29,6 +29,7 @@
 <div id="audio-controls"></div>
 
 <button class="play-button" @onclick="PlayChord">Play</button>
+<button class="play-button" @onclick="PlayArpeggiatedChord">Play Arpeggio</button>
 
 @code {
     bool showRoot = false;
@@ -40,12 +41,14 @@
     private int inversion = 0; // 0 for root position, 1 for first
     private string root = "C";
 
-    private string abc = "X:1\nQ:80\nT:Single Chord\nM:4/4\nK:C\n[CEG]4||";
+    private string abc = "X:1\nQ:80\nT:Single Chord\nM:4/4\nK:C\n[CEG]4|";
+    private string abcArpeggio = "X:1\nQ:100\nT:Arpeggio Chord\nM:4/4\nK:C\nV:1\nC4 |\nV:2\nz E3 |\nV:3\nz z G2  |";
 
     private void GenerateChord()
     {
-        (chord, chordQuality, inversion, abc) = MusicService.GenerateRandomChord();
-        abc = "X:1\nQ:80\nT:Single Chord\nM:4/4\nK:C\n" + abc + "||";
+        (chord, chordQuality, inversion, (abc, abcArpeggio)) = MusicService.GenerateRandomChord();
+        abc = "X:1\nQ:80\nT:Single Chord\nM:4/4\nK:C\n" + abc + "|";
+        abcArpeggio = "X:1\nQ:100\nT:Arpeggiated Chord\nM:4/4\nK:C\n" + abcArpeggio;
         switch (inversion)
         {
             case 1:
@@ -67,5 +70,11 @@
     {
         await JS.InvokeVoidAsync("musicInterop.playABC", abc);
     }
+
+    async Task PlayArpeggiatedChord()
+    {
+        await JS.InvokeVoidAsync("musicInterop.playABC", abcArpeggio);
+    }
+    
 
 }

@@ -83,7 +83,7 @@ public class MusicService
             }
             // abc += "|";
         }
-        abc += "||";
+        abc += "|";
 
         return abc.Trim();
     }
@@ -99,7 +99,7 @@ public class MusicService
         return note;
     }
 
-    public (string, string, int, string) GenerateRandomChord()
+    public (string, string, int, (string, string)) GenerateRandomChord()
     {
         // var roots = new[] { "C", "D", "E", "F", "G", "A", "B", "_D", "_E", "_G", "_A", "_B", "^C", "^D", "^F", "^G", "^A" };
         // var qualities = new[] { "", "m", "7", "m7", "maj7", "dim", "aug" };
@@ -193,23 +193,33 @@ public class MusicService
         {
             return (root, chordType, inversion, GenerateChordFromSteps(rootIndex, chromatic, diminishedChordSteps));
         }
-        return ("", "", 0, "");
+        return ("", "", 0, ("", ""));
     }
 
-    public string GenerateChordFromSteps(int rootIndex, string[] chromatic, int[] steps)
+    public (string, string) GenerateChordFromSteps(int rootIndex, string[] chromatic, int[] steps)
     {
         string chord = "[";
         int noteIndex = rootIndex;
-        
+        string arpeggio = "";
+        int voiceindex = 0;
+        int noteDuration = 4;
 
         foreach (var step in steps)
         {
             noteIndex = noteIndex + step;
             chord += chromatic[noteIndex] + "4";
+            arpeggio += "V:" + (voiceindex + 1) + "\n";
+            for (int i = 0; i < voiceindex; i++)
+            {
+                arpeggio += "z";
+            }
+            arpeggio += chromatic[noteIndex] + noteDuration + "|\n";
+            voiceindex++;
+            noteDuration--;
         }
 
         chord += "]";
-        return chord.Trim();
+        return (chord.Trim(), arpeggio);
     }
     
 
