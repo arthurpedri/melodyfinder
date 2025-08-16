@@ -1,0 +1,71 @@
+﻿@page "/chord"
+@inject IJSRuntime JS
+@inject MelodyFinder.Services.MusicService MusicService
+
+<PageTitle>Chord</PageTitle>
+
+
+<h1>Chord Identification</h1>
+<button @onclick="GenerateChord" class="generate-button">Generate</button>
+
+<button @onclick="() => showQuality = !showQuality" class="show-button">@((showQuality ? "Hide" : "Show") + " Quality")</button>
+
+<button @onclick="() => showRoot = !showRoot" class="show-button">@((showRoot ? "Hide" : "Show") + " Root")</button>
+
+<button @onclick="() => showNotation = !showNotation" class="show-button">@((showNotation ? "Hide" : "Show") + " Notation")</button>
+
+@if (showRoot)
+{
+    <h3 id="note-info" >Root: @root</h3>
+}
+@if (showQuality)
+{
+    <h3 id="note-info" >Quality: @readableQuality</h3>
+}
+
+
+<div id="notation" style="display:@(showNotation ? "block" : "none")"></div>
+
+<div id="audio-controls"></div>
+
+<button class="play-button" @onclick="PlayChord">Play</button>
+
+@code {
+    bool showRoot = false;
+    bool showQuality = false;
+    bool showNotation = false;
+    private string readableQuality = "maj";
+    private string chord = "C";
+    private string chordQuality = "maj";
+    private int inversion = 0; // 0 for root position, 1 for first
+    private string root = "C";
+
+    private string abc = "X:1\nQ:80\nT:Single Chord\nM:4/4\nK:C\n[CEG]4||";
+
+    private void GenerateChord()
+    {
+        (chord, chordQuality, inversion, abc) = MusicService.GenerateRandomChord();
+        abc = "X:1\nQ:80\nT:Single Chord\nM:4/4\nK:C\n" + abc + "||";
+        switch (inversion)
+        {
+            case 1:
+            readableQuality = chordQuality + " (1st inversion)";
+                break;
+            case 2:
+            readableQuality = chordQuality + " (2nd inversion)";
+                break;
+            default:
+            readableQuality = chordQuality;
+                break;
+        }
+        root = chord;
+
+    }
+
+
+    async Task PlayChord()
+    {
+        await JS.InvokeVoidAsync("musicInterop.playABC", abc);
+    }
+
+}
