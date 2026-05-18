@@ -1,0 +1,105 @@
+@page "/analyzer"
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<h1>Realtime Chroma Analyzer</h1>
+
+<button @onclick="StartAnalyzer">
+    Start Microphone
+</button>
+
+
+<div style="margin-top:20px">
+
+    @foreach (var note in chroma)
+    {
+        <div style="margin-bottom:10px">
+
+            <strong>@note.Note</strong>
+
+            <div style="
+                height:20px;
+                width:@(note.Value * 300)px;
+                background:limegreen;
+                display:inline-block;
+                margin-left:10px;
+            ">
+            </div>
+
+            @note.Value.ToString("0.000")
+
+        </div>
+    }
+
+</div>
+
+@code {
+
+    private DotNetObjectReference<Analyzer>? objRef;
+
+    private List<NoteStrength> chroma =
+        new();
+
+    protected override void OnInitialized()
+    {
+        foreach (var note in new[]
+        {
+            "C","C#","D","D#","E","F",
+            "F#","G","G#","A","A#","B"
+        })
+        {
+            chroma.Add(new NoteStrength
+            {
+                Note = note,
+                Value = 0
+            });
+        }
+    }
+
+    async Task StartAnalyzer()
+    {
+        objRef = DotNetObjectReference.Create(this);
+
+        await JS.InvokeVoidAsync(
+            "audioAnalyzer.start",
+            objRef
+        );
+    }
+
+    [JSInvokable]
+    public void ReceiveChroma(
+        List<NoteStrength> values)
+    {
+        chroma = values;
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (objRef != null)
+            objRef.Dispose();
+
+        await JS.InvokeVoidAsync(
+            "audioAnalyzer.stop"
+        );
+    }
+
+    public class NoteStrength
+    {
+        public string Note { get; set; } = "";
+        public double Value { get; set; }
+    }
+
+    public class AudioFeatures
+{
+    public double Rms { get; set; }
+    public double Zcr { get; set; }
+    public double Centroid { get; set; }
+    public double Flatness { get; set; }
+    public double Rolloff { get; set; }
+
+    public double[] Chroma { get; set; } =
+        Array.Empty<double>();
+}
+}
