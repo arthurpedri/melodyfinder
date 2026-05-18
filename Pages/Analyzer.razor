@@ -4,12 +4,28 @@
 
 <h1>Realtime Chroma Analyzer</h1>
 
-<button @onclick="StartAnalyzer">
+<button @onclick="StartAnalyzer" class="generate-button">
     Start Microphone
+</button>
+<button @onclick="StopAnalyzer" class="show-button">
+    Stop Microphone
+</button>
+<button @onclick="ResetAnalyzer" class="show-button">
+    Reset Accumulated Chroma
+</button>
+<button @onclick="() => showDetails = !showDetails" class="generate-button">
+    @(showDetails ? "Hide" : "Show") Audio Features
 </button>
 
 
+
 <div style="margin-top:20px">
+@if (showDetails) 
+{
+    <p>RMS: @features.Rms</p>
+    <p>ZCR: @features.Zcr</p>
+    <p>Flatness: @features.Flatness</p>
+    <p>Centroid: @features.Centroid</p>
 
     @foreach (var note in chroma)
     {
@@ -30,15 +46,50 @@
 
         </div>
     }
+}
+    <h4>Top 7 Notes</h4>
+    @foreach (var note in accumulatedChroma.OrderByDescending(n => n.Value).Take(7))
+    {
+
+            <span><strong>@note.Note</strong> (@note.Value.ToString("0.000"))  |  </span>
+
+    }
+    <hr />
+    @foreach (var note in accumulatedChroma)
+    {
+        <div style="margin-bottom:10px">
+
+            <strong>@note.Note</strong>
+
+            <div style="
+                height:20px;
+                width:@(note.Value * 3)px;
+                background:blue;
+                display:inline-block;
+                margin-left:10px;
+            ">
+            </div>
+
+            @note.Value.ToString("0.000")
+
+        </div>
+    }
+
 
 </div>
 
 @code {
-
+    private bool showDetails = false;
     private DotNetObjectReference<Analyzer>? objRef;
 
     private List<NoteStrength> chroma =
         new();
+
+    private List<NoteStrength> accumulatedChroma =
+        new();
+
+    private AudioFeatures features =
+        new(); 
 
     protected override void OnInitialized()
     {
@@ -53,7 +104,21 @@
                 Note = note,
                 Value = 0
             });
+            accumulatedChroma.Add(new NoteStrength
+            {
+                Note = note,
+                Value = 0
+            });
         }
+    }
+
+    public void ResetAnalyzer()
+    {
+        foreach (var note in accumulatedChroma)
+        {
+            note.Value = 0;
+        }
+        InvokeAsync(StateHasChanged);
     }
 
     async Task StartAnalyzer()
@@ -66,23 +131,53 @@
         );
     }
 
+    async Task StopAnalyzer()
+{
+    await JS.InvokeVoidAsync(
+        "audioAnalyzer.stop"
+    );
+}
+
     [JSInvokable]
     public void ReceiveChroma(
         List<NoteStrength> values)
     {
         chroma = values;
 
+        // If chroma value is above a threshold, add to accumulatedChroma
+        foreach (var note in chroma)
+        {
+            if (note.Value > 0.99)
+            {
+                var accNote = accumulatedChroma
+                    .First(n => n.Note == note.Note);
+                accNote.Value += note.Value;
+            }
+        }
+
         InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public void ReceiveFeatures(
+        AudioFeatures features)
+    {
+        this.features = features;
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public void ReceiveTest(string text)
+    {
+        Console.WriteLine(text);
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (objRef != null)
-            objRef.Dispose();
+        await StopAnalyzer();
 
-        await JS.InvokeVoidAsync(
-            "audioAnalyzer.stop"
-        );
+        objRef?.Dispose();
     }
 
     public class NoteStrength
@@ -103,3 +198,70 @@
         Array.Empty<double>();
 }
 }
+
+
+<!--
+RMS
+
+Volume / signal energy.
+
+Silence:
+
+~0.001
+
+Music:
+
+0.01–0.2+
+ZCR (Zero Crossing Rate)
+
+Measures noisiness / high-frequency content.
+
+High:
+
+hiss,
+noise,
+percussion.
+
+Low:
+
+stable tones,
+bass notes.
+
+Very useful.
+
+Spectral Centroid
+
+"Brightness."
+
+Low:
+
+bass-heavy,
+warm.
+
+High:
+
+bright,
+cymbals,
+hiss.
+
+Spectral Flatness
+
+VERY useful for your problem.
+
+Measures:
+
+noise-like vs tone-like
+
+Low flatness:
+
+musical tones,
+harmonics.
+
+High flatness:
+
+white noise,
+fans,
+hiss.
+
+This may become your best noise detector.
+-->
